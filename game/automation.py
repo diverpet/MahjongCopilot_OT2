@@ -24,18 +24,28 @@ from .browser import GameBrowser
 from .game_state import GameInfo, GameState
 
 
+def weighted_random():
+    # Define the ranges based on the probabilities
+    ranges = [
+        (0.00, 0.05, 1),  # 1's probability range
+        (0.05, 0.45, 2),  # 2's probability range
+        (0.45, 0.80, 3),  # 3's probability range
+        (0.80, 0.90, 4),  # 4's probability range
+        (0.90, 0.97, 5),  # 5's probability range
+        (0.97, 1.00, 6),  # 6's probability range
+    ]
+
+    # Generate a random number between 0 and 1
+    rnd = random.random()
+
+    # Determine the integer based on the generated random number
+    for lower, upper, num in ranges:
+        if lower <= rnd < upper:
+            return num
+
+
 def generate_normal_random_int():
-    mean = 4.5  # 中心点
-    std_dev = 0.9  # 标准差设置得较小，以使大部分数据集中在中心
-
-    # 生成一个符合正态分布的随机数
-    random_float = np.random.normal(mean, std_dev)
-
-    # 四舍五入到最近的整数，并限制在1到6之间
-    random_int = round(random_float)
-    random_int = max(min(random_int, 6), 1)
-
-    return random_int
+    return weighted_random()
 
 
 class Positions:
@@ -458,8 +468,8 @@ class Automation:
             return action # no options to randomize
         mjai_type = action['type']
         options: dict = action['meta_options']
-        # get options (tile only) from top 4 at most
-        top_ops = sorted(options, key=lambda item: item[1], reverse=True)[:4]
+        # get options (tile only) from top 3 at most
+        top_ops = sorted(options, key=lambda item: item[1], reverse=True)[:3]
 
         # pick from top4 according to probability
         power = 1 / (0.2 * n)
