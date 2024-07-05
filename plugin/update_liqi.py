@@ -40,5 +40,7 @@ def update(version):
                         req = requests.get(item['browser_download_url'])
                         with open(f'proto/{item["name"]}', 'w') as f:
                             f.write(req.text)
+                        with open(f'liqi_proto/{item["name"]}', 'w') as f:
+                            f.write(req.text)
             logger.success(f'liqi文件更新成功：{prefix}')
             return prefix
