@@ -464,8 +464,10 @@ class Automation:
         kyoku_state = game_state.kyoku_state
         if r == 0:
             return 0
-        if kyoku_state.player_reach >= 1 and kyoku_state.self_in_reach == 0:
-            return 0
+        for reach_state in kyoku_state.player_reach:
+            if reach_state:
+                if kyoku_state.self_in_reach == 0:
+                    return 0
         if kyoku_state.num_tiles_discarded >= 60:
             return 0
         else:
