@@ -474,7 +474,7 @@ class Automation:
 
     def randomize_action(self, action:dict, gi:GameInfo, game_state:GameState) -> dict:
         """ Randomize ai choice: pick according to probaility from at most top 3 options"""
-        n = self.get_adjusted_random_seed_by_game_state(self.randomize_seed)     # randomize strength. 0 = no random, 5 = according to probability
+        n = self.get_adjusted_random_seed_by_game_state(self.randomize_seed, game_state)     # randomize strength. 0 = no random, 5 = according to probability
         if n == 0:
             return action
         if len(action['meta_options']) == 0:
