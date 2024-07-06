@@ -28,9 +28,9 @@ def weighted_random():
     # Define the ranges based on the probabilities
     ranges = [
         (0.00, 0.05, 1),  # 1's probability range
-        (0.05, 0.45, 2),  # 2's probability range
-        (0.45, 0.80, 3),  # 3's probability range
-        (0.80, 0.90, 4),  # 4's probability range
+        (0.05, 0.40, 2),  # 2's probability range
+        (0.40, 0.75, 3),  # 3's probability range
+        (0.75, 0.90, 4),  # 4's probability range
         (0.90, 0.97, 5),  # 5's probability range
         (0.97, 1.00, 6),  # 6's probability range
     ]
