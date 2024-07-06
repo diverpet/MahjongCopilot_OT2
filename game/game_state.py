@@ -40,6 +40,7 @@ class KyokuState:
         self.my_tehai:list = None           # list of tehai in mjai format
         self.my_tsumohai:str = None         # tsumohai in mjai format, or None
         self.doras_ms:list[str] = []        # list of doras in ms tile format
+        self.num_tiles_discarded:int = 0    # number of tiles discarded
 
         ### flags
         self.pending_reach_acc:dict = None  # Pending MJAI reach accepted message
@@ -89,6 +90,8 @@ class GameState:
         """ Append action to pending input msgs"""
         self.mjai_pending_input_msgs.append(action)
         self.last_action = action
+        if action["type"] == MjaiType.DAHAI:
+            self.kyoku_state.num_tiles_discarded += 1
 
     def get_game_info(self) -> GameInfo:
         """ Return game info. Return None if N/A"""

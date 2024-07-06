@@ -459,9 +459,22 @@ class Automation:
         self._task.start_action_steps(action_steps, game_state)
         return True
 
+    def get_adjusted_random_seed_by_game_state(self, r:int, game_state:GameState) -> float:
+        """ Adjust random seed by game state"""
+        kyoku_state = game_state.kyoku_state
+        if r == 0:
+            return 0
+        if kyoku_state.player_reach >= 1 and kyoku_state.self_in_reach == 0:
+            return 0
+        if kyoku_state.num_tiles_discarded >= 60:
+            return 0
+        else:
+            return r * (1 - kyoku_state.num_tiles_discarded / 60)
+
+
     def randomize_action(self, action:dict, gi:GameInfo, game_state:GameState) -> dict:
         """ Randomize ai choice: pick according to probaility from at most top 3 options"""
-        n = self.randomize_seed     # randomize strength. 0 = no random, 5 = according to probability
+        n = self.get_adjusted_random_seed_by_game_state(self.randomize_seed)     # randomize strength. 0 = no random, 5 = according to probability
         if n == 0:
             return action
         if len(action['meta_options']) == 0:
