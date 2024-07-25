@@ -27,12 +27,12 @@ from .game_state import GameInfo, GameState
 def weighted_random():
     # Define the ranges based on the probabilities
     ranges = [
-        (0.00, 0.05, 1),  # 1's probability range
-        (0.05, 0.40, 2),  # 2's probability range
-        (0.40, 0.75, 3),  # 3's probability range
-        (0.75, 0.90, 4),  # 4's probability range
-        (0.90, 0.97, 5),  # 5's probability range
-        (0.97, 1.00, 6),  # 6's probability range
+        (0.00, 0.02, 1),  # 1's probability range
+        (0.02, 0.25, 2),  # 2's probability range
+        (0.25, 0.55, 3),  # 3's probability range
+        (0.55, 0.85, 4),  # 4's probability range
+        (0.85, 0.95, 5),  # 5's probability range
+        (0.95, 1.00, 6),  # 6's probability range
     ]
 
     # Generate a random number between 0 and 1
