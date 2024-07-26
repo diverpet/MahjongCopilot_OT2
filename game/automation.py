@@ -28,9 +28,9 @@ def weighted_random():
     # Define the ranges based on the probabilities
     ranges = [
         (0.00, 0.02, 1),  # 1's probability range
-        (0.02, 0.25, 2),  # 2's probability range
-        (0.25, 0.55, 3),  # 3's probability range
-        (0.55, 0.85, 4),  # 4's probability range
+        (0.02, 0.20, 2),  # 2's probability range
+        (0.20, 0.50, 3),  # 3's probability range
+        (0.50, 0.85, 4),  # 4's probability range
         (0.85, 0.95, 5),  # 5's probability range
         (0.95, 1.00, 6),  # 6's probability range
     ]
@@ -475,7 +475,7 @@ class Automation:
 
 
     def randomize_action(self, action:dict, gi:GameInfo, game_state:GameState) -> dict:
-        """ Randomize ai choice: pick according to probaility from at most top 3 options"""
+        """ Randomize ai choice: pick according to probaility from at most top 5 options"""
         n = self.get_adjusted_random_seed_by_game_state(self.randomize_seed, game_state)     # randomize strength. 0 = no random, 5 = according to probability
         if n == 0:
             return action
@@ -483,10 +483,10 @@ class Automation:
             return action # no options to randomize
         mjai_type = action['type']
         options: dict = action['meta_options']
-        # get options (tile only) from top 3 at most
-        top_ops = sorted(options, key=lambda item: item[1], reverse=True)[:3]
+        # get options (tile only) from top 5 at most
+        top_ops = sorted(options, key=lambda item: item[1], reverse=True)[:5]
 
-        # pick from top4 according to probability
+        # pick from top 5 according to probability
         power = 1 / (0.2 * n)
         sum_probs = sum([v ** power for k, v in top_ops])
         top_ops_powered = [(k, v ** power / sum_probs) for k, v in top_ops]
